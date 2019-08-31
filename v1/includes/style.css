@@ -1,0 +1,69 @@
+
+body{
+	background-color: gray;
+	
+	
+}
+nav{
+	list-style-type:none;
+	border-style:dashed;
+	text-align:center;
+	margin:20px;
+	
+}
+ul a{
+	text-decoration: none;
+	
+}
+ul{
+	list-style-type:none;
+	display:inline-block;
+	
+}
+
+ul li{
+		display:inline-block;
+		margin:25px;
+	
+}
+section{
+		background-color:red;
+		border-style:dotted;
+		margin-bottom:20px;
+		width:1344px;
+		position:center;
+}
+form{
+	text-align:center;
+}
+form input{
+	display:block;
+	position:center;
+	margin:auto;
+}
+.accessdenied{
+	border-style: solid;
+	color:white;
+	
+	
+}
+.password_not_matching{
+	border-style:solid;
+	color:yellow;
+}
+.page_title{
+	color:blue;
+	background:white;
+	margin:20px;
+	border: solid black 0.1em;
+}
+/* ESPACE MEMBRES */
+.user_profil{
+	border:none;
+	display:inline-block;
+}
+.user_register{
+	display:inline-block;
+	border-style:solid;
+	
+}
