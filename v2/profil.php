@@ -1,7 +1,6 @@
 <?php
 if(file_exists('includes/members.php')){
 	require_once('includes/members.php');
-	start_session(); 
 }
 
 ?>

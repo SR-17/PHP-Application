@@ -1,4 +1,9 @@
 <?php
+if(file_exists("includes/members.php")){
+	require_once("members.php");
+}elseif(file_exists("members.php")){
+	require_once("members.php");
+}
 if(isLogged()){
 		echo '
 		<nav>
@@ -10,7 +15,9 @@ if(isLogged()){
 
 			</ul>
 		</nav>';
-	
+		echo "<form method='POST' action='includes/disconnect.php'>";
+		echo "<input type='submit' name='disconnect' value='deconnexion'>";
+		echo "</form>";
 }else {
 	echo "
 		<nav>

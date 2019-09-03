@@ -42,7 +42,7 @@ float:left;
     <?php showUser(); ?> 
 </br>
 </br>
-    Supprimer l'utilisateur : <form type="POST" action="process.php"><input id="1"readonly type="pseudo" onload="hide()"></br></br><input type="submit" value="Confirmer la suppression de l'utilisateur"></input></form>
+    Supprimer l'utilisateur : <form type="POST" action="process.php"><input id="1"readonly type="text" onload="hide()" name="deleteuser"></br></br><input type="submit" value="Confirmer la suppression de l'utilisateur"/></form>
 </br>
 </div><div class="news_formulaire">
 <b>Vos news :</br></b><?php showNews(); ?></br>

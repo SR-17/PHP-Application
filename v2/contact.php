@@ -1,12 +1,11 @@
 <?php
 if(file_exists('includes/members.php')){
 	require_once('includes/members.php');
-	start_session(); 
 }
 ?>
 <html>
-
 <head>
+
 <link rel="stylesheet" type="text/css" href="includes/style.css">
 
 </head>
@@ -23,12 +22,23 @@ if(file_exists('includes/members.php')){
 
 	if(isLogged()){
 		drawContact();
+	}else{
+		echo "<center><section><h4> Vous devez être connecté pour pouvoir me contacter !
+		</br></h4><h3>Vous allez être rediriger vers l'accueil</h3></section></center>";
+		echo'<script>
+				a = function(){
+				window.location = "index.php";
+				};
+				window.setTimeout(a,3000);
+			</script>';
+
 	}
 																		
 		if(isset($_POST['message']) && isset($_POST['pseudo']) && isset($_POST['titre'])){
 			$titre = $_POST['titre'];
 			$message = $_POST['message'];
 			$pseudo = $_POST['pseudo'];
+			
 			if(!isContactOk($titre,$message,$pseudo)){
 				echo '<h4 style="text-align:center;">Impossible d"envoyer le formulaire de contact ! Veuillez reessayez en cliquant ici </h4>';
 				$_POST = array();

@@ -1,4 +1,7 @@
 <?php
+if(session_status() != "PHP_SESSION_ACTIVE"){ // Indispensable
+	session_start();
+}
 // ***** PARTIE  : General ***** 
 function isContactOk($pseudo,$title,$message){
 	if(isPseudoOk($pseudo) && isTitleOk($title) && isMessageOk($message)){
@@ -29,20 +32,10 @@ function isTitleOk($titre){
 		}
 			}
 function isLogged(){
-	if(isset($_SESSION['pseudo']) && !is_null($_SESSION['pseudo'])){
+	if(isset($_SESSION['pseudo'])){
 		return TRUE;
 	}else{
 		return FALSE;
-	}
-}
-function start_session(){
-	if(session_status() == PHP_SESSION_NONE){
-		session_start();
-	}
-}
-function stop_session(){
-	if(session_status() == PHP_SESSION_ACTIVE){
-	session_abort();
 	}
 }
 function get_configuration(){ 
@@ -70,9 +63,9 @@ function drawContact(){
 		echo '<h4>Contacter le staff</h4>';
 		echo "Votre pseudo : ".$_SESSION['pseudo'];
 		echo "</br>";
-		echo "</br>Titre du message : <input type='text' name='titre'>";
+		echo "</br>Titre du message :</br> <input type='text' name='titre'>";
 		echo "</br>";
-		echo "Votre demande : <input type='text' name='message' maxLength=250>";
+		echo "Votre demande :</br> <input type='text' name='message' maxLength=250>";
 		echo "</br>";
 		echo "<input type='submit' value='Envoyer'>";
 		echo '</form>';
@@ -81,7 +74,7 @@ function drawContact(){
 		if(!isset($_POST['message']) && !isset($_POST['titre']) && !isset($_POST['pseudo'])){
 		echo '<section>';
         echo '<h4 style="text-align:center;">Vous devez être connecté pour pouvoir utiliser le formulaire contact.</h4>';
-		echo '<h4 style="text-align:center;">Si vous n\'avez pas de compte, veuillez vous rendre <a href=\'inscription.php\'>ici</a></h4></section>';
+		echo '<h4 style="text-align:center;">Si vous n\'avez pas de compte, veuillez vous rendre <a href="inscription.php">ici</a></h4></section>';
 		}
 	}
 	
@@ -133,7 +126,8 @@ function drawNews(){
 		}
 		$req->closeCursor();
 }
-// ***** PARTIE  : Membres ***** 
+// ***** PARTIE  : Membres *****
+// Ici
  function isValidPseudo($pseudo){
 		include('bdd.php');
 		$req = $bdd->prepare('SELECT * FROM membres WHERE pseudo=:pseudo');
@@ -142,7 +136,8 @@ function drawNews(){
 		if(empty($res['pseudo'])){
 				return TRUE;
 		}else{
-			echo '<section class="mail_not_valid">Impossible de continuer : Ce pseudo est déjà utilisé ! </section>';
+			echo '<center><h3>Impossible de continuer : Ce pseudo est déjà utilisé !</h3></center>';
+			echo'<script> a = function(){window.locations("inscription.php")}; window.setTimeout(a,3000);</script>';
 			return FALSE;
 		}
 		$req->closeCursor();
@@ -152,7 +147,8 @@ function isValidMail($mail){
 		echo "OK !";
 		return TRUE;
 	}else{
-		echo '<section class="mail_not_valid">Impossible de continuer : Veuillez entre un email valide ! </section>';
+		echo '<center><h3>Impossible de continuer : Votre addresse email n\'est pas valide ! !</h3></center>';
+		echo'<script> a = function(){window.locations("inscription.php")}; window.setTimeout(a,3000);</script>';
 		return FALSE;
 	}
 
@@ -161,7 +157,8 @@ function isPasswordMatching($password,$tocompare){
 	if($password == $tocompare){
 		return TRUE;
 	}else{
-		echo '<section class="password_not_matching">Impossible de continuer : Veuillez confirmer votre mot de passe ! </section>';
+		echo '<center><h3>Impossible de continuer : Veuillez confirmer votre mot de passe une deuxième fois.</h3></center>';
+		echo'<script> a = function(){window.locations("inscription.php")}; window.setTimeout(a,3000);</script>';
 		return FALSE;
 	}
 }
@@ -169,7 +166,8 @@ function isValidPassword($password){
 	if(!empty($password)){
 		return TRUE;
 	}else{
-		echo 'PASSWORD';
+		echo '<center><h3>Impossible de continuer : Le mot de passe  n est déjà utilisé !</h3></center>';
+		echo'<script> a = function(){window.locations("inscription.php")}; window.setTimeout(a,3000);</script>';
 		return FALSE;
 	}
 }
@@ -181,6 +179,19 @@ function isFormatOk($pseudo,$password,$mail){
 		exit();
 	}
 }
+function createMember($pseudo,$password,$mail){ // Ici on considère que toutes les valeurs sont parfaitement sûrs.
+	if(TRUE){
+		include('bdd.php');
+		$date = date('d.m.y');
+		$req = $bdd->prepare('INSERT INTO membres(pseudo,password,mail,date) VALUES (:pseudo,:password,:mail,:date)');
+		$encrypted_password = password_hash($password,PASSWORD_DEFAULT);
+		$req->execute(array('pseudo' => $pseudo,'password' => $encrypted_password, 'mail' => $mail,'date'=> $date));
+		return TRUE;
+	}else{
+		return FALSE;
+	}
+
+}
 function isValidNews($author,$title,$date,$data){
 	if(is_string($author) && is_string($title) && is_string($data)){
 		return TRUE;
@@ -188,35 +199,13 @@ function isValidNews($author,$title,$date,$data){
 		return FALSE;
 	}
 }
-function createMember($pseudo,$password,$mail){
-	if(TRUE){
-		include('bdd.php');
-		$req = $bdd->prepare('INSERT INTO membres(pseudo,password,mail,date) VALUES (:pseudo,:password,:mail,:date)');
-		$encrypted_password = password_hash($password,PASSWORD_DEFAULT);
-		$req->execute(array('pseudo' => $pseudo,'password' => $encrypted_password, 'mail' => $mail,'date'=> date()));
-		return TRUE;
-	}else{
-		return FALSE;
-	}
-
-}
 function disconnect(){
 	$_SESSION = array();
 	}
 function connect(){
 	$_SESSION['pseudo'] = $_POST['pseudo'];
-}
-function isAdmin(){ 
-	$a = 'admin';
-	include('db.php');
-	$req = $bdd->prepare('SELECT * from utilisateur WHERE group_policy=:AD pseudo=:pseudo');
-	$req->execute(array('AD' => $a,'pseudo' => $_SESSION['pseudo']));
-	$req->fetch();
-	if($req){
-		return TRUE;
-	}else{
-		return FALSE;
-}
+	$_POST = array();
+	header("Location: index.php","303");
 }
 function SendContact($titre,$pseudo,$message,$date){
 	include('bdd.php');

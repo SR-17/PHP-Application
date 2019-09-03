@@ -2,7 +2,15 @@
 if(file_exists("members.php")){
 	require("members.php");
 }
-	
+if(isLogged()){
+	echo 'window.location="../index.php"';
+	exit();
+}
+if(is_null(isset($_POST['pseudo'])) && is_null(($_POST['password']))){
+	echo'<script>window.location="../index.php"</script>';
+	exit();
+}
+
 ?>
 <html>
 
@@ -35,8 +43,9 @@ if(file_exists("members.php")){ // Evite l'affichage d'une
 					
 					if(createMember($_POST['pseudo'],$_POST['password'],$_POST['mail'])){
 						
-						echo '<section>Vous êtes maintenant inscrit !';
-						echo 'Pour retourner a l accueil : <a href="../index.php">Cliquez ici</a></section>';
+						echo '<h3><center>Vous êtes maintenant inscrit !</center></h3>';
+						echo'<script> a = function(){window.locations("index.php")}; window.setTimeout(a,3000);</script>';
+
 						
 					}else{
 						
@@ -44,6 +53,8 @@ if(file_exists("members.php")){ // Evite l'affichage d'une
 					}
 		}
 		}
+		}else{
+			echo'<script>window.location="../index.php"</script>';
 		}
 }
 

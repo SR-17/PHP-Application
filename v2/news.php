@@ -1,6 +1,5 @@
 <?php
-include('members.php');
-start_session();
+include('includes/members.php');
 ?>
 <html>
 
@@ -21,10 +20,7 @@ start_session();
 		require('login.php');	
 	} ?>
 	</section>
-SECTION PRINCIPALE DU SITE INTERNET 
 
-
-LE CONTENU SERA AFFICHE ICI.
 
 </br>
 

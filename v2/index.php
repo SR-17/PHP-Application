@@ -1,23 +1,11 @@
-
-<?php
-if(file_exists('includes/members.php')){
-	require_once('includes/members.php');
-	start_session(); 
-}
-
-?>
 <html>
-
 <head>
 <link rel="stylesheet" type="text/css" href="includes/style.css">
-
+<link href="includes/script.js" type="javascript"/>
 </head>
 
 <body>
 <?php
-	if(file_exists('includes/disconnect.php')){
-	require_once('includes/disconnect.php');
-	}
 	if(file_exists('includes/header.php')){
 		require_once('includes/header.php');
 	}
@@ -28,12 +16,13 @@ if(file_exists('includes/members.php')){
 
 <?php
 	if(isLogged()){
-		echo '<section>Bienvenue</section>';
-	}else{
+		echo '<section>Bienvenue</br>';
+			
+		}else{
 		if(file_exists('includes/login.php')){
 		require_once('includes/login.php');
-		}	
-	} 
+		}
+	}
 	
 	drawNews();
 	?>

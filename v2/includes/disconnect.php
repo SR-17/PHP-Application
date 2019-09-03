@@ -1,17 +1,15 @@
 <?php
 	require_once('members.php');
-	if(isLogged()){
-		echo "<form method='POST' action='includes/disconnect.php'>";
-		echo "<input type='submit' name='disconnect' value='deconnexion'>";
-		echo "</form>";
-		
-	}
 	
 	if(isset($_POST['disconnect'])){
 		$_POST = array();
-		if(isset($_POST['disconnect'])){
-		}
 		disconnect();
+		echo '<center><h3>Vous avez été deconnecté</h3></center>';
+		echo '<script>a=function()
+		{
+			window.location = "../index.php"; 
+		};
+			window.setTimeout(a,2000);</script>';
 	}
 	
 	
