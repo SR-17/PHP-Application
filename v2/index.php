@@ -1,3 +1,4 @@
+<?php session_start()?>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="includes/style.css">
@@ -7,7 +8,7 @@
 <body>
 <?php
 	if(file_exists('includes/header.php')){
-		require_once('includes/header.php');
+		include_once('includes/header.php');
 	}
 	
 	?>
@@ -20,7 +21,7 @@
 			
 		}else{
 		if(file_exists('includes/login.php')){
-		require_once('includes/login.php');
+		include_once('includes/login.php');
 		}
 	}
 	
@@ -46,7 +47,7 @@
 
 <?php 
 	if(file_exists('includes/footer.php')){
-		require('includes/footer.php');	
+		include_once('includes/footer.php');	
 	}
 ?>
 </body>

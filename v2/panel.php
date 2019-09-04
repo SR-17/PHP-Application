@@ -1,5 +1,6 @@
+<?php session_start()?>
 <html>
-<?php require('includes/admin_function.php'); ?>
+<?php include_once('includes/admin_function.php'); ?>
 <head>
 <script>
  function update(){

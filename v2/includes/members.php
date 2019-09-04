@@ -86,12 +86,13 @@ function drawProfil(){
 	$user_info = $req_obj->fetch();
 	echo '<section class="profil"> 
 		<h3>Bienvenue sur votre profil '.$_SESSION['pseudo'].'</h3></br>
-		</br>Votre email :<input type="text" value="'.$user_info['mail'].'"/>
-		</br>Date d"inscription :<input type="text" value="'.$user_info['date'].'"/>
 	<form action="profil.php" method="POST">
-	
+	</br>Votre email :<input type="text" value="'.$user_info['mail'].'"/>
+		</br>Date d"inscription :<input type="text" value="'.$user_info['date'].'"/>
+		</br>Signature :<input type="text" name="profil_signature" value="'.$user_info['signature'].'">
+		</br>
+
 		<input type="submit" value="Mettre à jour mon profil"/>
-		<input type="
 	</form>
 	</section>';
 	}else{
@@ -162,6 +163,26 @@ function isPasswordMatching($password,$tocompare){
 		return FALSE;
 	}
 }
+function updateProfil($value,$pseudo){ // This function assume every value is checked before
+	require('bdd.php');
+	$req = $bdd->prepare('INSERT INTO membres(signature) VALUES(:signature) WHERE pseudo=:pseudo');
+	$req->execute(array('pseudo' => $pseudo,'signature' => $value));
+	$req->closeCursor();
+}
+function isSignatureOverflowing($signature){
+	if(strlen($username) > 30){
+		$_POST = array();
+		header('Location : profil.php',304);
+	}
+}
+function isSignatureValid($signature){
+	$regex_signature = '*';
+	if(preg_match($regex_signature,$mail)){
+		return TRUE;
+	}else{
+		return FALSE;
+	}
+}
 function isValidPassword($password){
 	if(!empty($password)){
 		return TRUE;
@@ -227,7 +248,7 @@ function getUserDBInfo(){
 		return $req;
 	}else{
 		echo 'Une erreur est survenu. Veuillez nous excusez pour la gêne occassionnée.';
-		die();
+		exit();
 		return FALSE;
 	}
 	$req->closeCursor();

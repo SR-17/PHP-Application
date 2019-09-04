@@ -1,8 +1,8 @@
 <?php
 if(file_exists("includes/members.php")){
-	require_once("members.php");
+	include_once("members.php");
 }elseif(file_exists("members.php")){
-	require_once("members.php");
+	include_once("members.php");
 }
 if(isLogged()){
 		echo '

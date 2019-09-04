@@ -1,3 +1,4 @@
+<?php session_start()?>
 <?php
 include('includes/members.php');
 ?>
@@ -17,7 +18,7 @@ include('includes/members.php');
 
 <?php
 	if(file_exists('login.php')){
-		require('login.php');	
+		include_once('login.php');	
 	} ?>
 	</section>
 

@@ -1,6 +1,7 @@
+<?php session_start()?>
 <?php
 if(file_exists('includes/members.php')){
-	require_once('includes/members.php');
+	  _once_once_once('includes/members.php');
 }
 ?>
 <html>
@@ -13,7 +14,7 @@ if(file_exists('includes/members.php')){
 <body>
 <?php
 	if(file_exists('includes/header.php')){
-		require_once('includes/header.php');
+		include_once('includes/header.php');
 	}
 		?>
 	<div class="page_title"><h2 style="text-align:center;">Formulaire de contact</h2></div>
@@ -69,7 +70,7 @@ if(file_exists('includes/members.php')){
 	</section>
 <?php 
 	if(file_exists('includes/footer.php')){
-		require('includes/footer.php');	
+		include_once_once('includes/footer.php');	
 	}
 ?>
 </body>

@@ -1,3 +1,4 @@
+<?php session_start()?>
 <?php
 include('includes/members.php');
 ?>
@@ -66,7 +67,7 @@ include('includes/members.php');
 </body>
 <?php 
 	if(file_exists('includes/footer.php')){
-		require('includes/footer.php');	
+		include_once('includes/footer.php');	
 	}
 ?>
 </html>

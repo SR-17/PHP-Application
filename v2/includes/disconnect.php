@@ -1,5 +1,5 @@
 <?php
-	require_once('members.php');
+	include_once('members.php');
 	
 	if(isset($_POST['disconnect'])){
 		$_POST = array();
@@ -11,6 +11,4 @@
 		};
 			window.setTimeout(a,2000);</script>';
 	}
-	
-	
 	?>

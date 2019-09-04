@@ -60,13 +60,13 @@ function DeleteUser($pseudo){
 }             
 }
 function queryAllUsers(){
-    require('includes/bdd.php');
+    include_once('includes/bdd.php');
     $req = $bdd->prepare('SELECT * FROM membres');
     $req->execute();
     return $req;
 }
 function addNews($titre,$contenu){
-    require('includes/bdd.php');
+    include_once('includes/bdd.php');
     $req = $bdd->prepare('INSERT INTO news(titre,contenu) VALUES(:titre,:contenu,:auteur,:date)');
 	$req->execute(array('titre' => $titre,'auteur' => $auteur,'contenu' => $contenu,'date' => 0));
 		if($req == NULL){
@@ -77,7 +77,7 @@ function addNews($titre,$contenu){
 function deleteNews($id){
     echo 'test';
     $id = $id--;
-    require('includes/bdd.php');
+    include_once('includes/bdd.php');
     $req = $bdd->prepare('DELETE FROM news WHERE id=:id');
     $req->execute(array('id' => $id));
     $req->closeCursor();
@@ -131,7 +131,7 @@ function sendmessage($auteur,$titre,$data,$date){ // envois un message par $_POS
 		$formated_data = ";startofmessage;" . $auteur . ";" . "titre:" . $titre . ";" . "contenu:" . $data . ";" . "date:" . $date . ";" . ";endofmessage;";
 		
 		if(file_exists("includes/bdd.php")){
-			require('includes/bdd.php');
+			include_once('includes/bdd.php');
 			$req = $bdd->prepare('INSERT INTO messagerie(titre,data,auteur,date) VALUES(:titre,:data,:auteur,:date) WHERE pseudo=:pseudo');
 			$res = $req->execute(array('date' => $date,'auteur' => $auteur ,'data' => $formated_data,'pseudo' => $pseudo, 'titre' => $titre));
 		if($res != 0){

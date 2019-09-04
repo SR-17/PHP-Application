@@ -1,6 +1,6 @@
 <?php
 if(file_exists("members.php")){
-	require("members.php");
+	include_once("members.php");
 }
 if(isLogged()){
 	echo 'window.location="../index.php"';

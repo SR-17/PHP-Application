@@ -1,9 +1,15 @@
+<?php session_start()?>
 <?php
-if(file_exists('includes/members.php')){
-	require_once('includes/members.php');
-}
+	   include_once('includes/members.php');
+        
 
-?>
+if(isset($_POST['profil_signature'])){
+			$signature = $_POST['profil_signature'];
+			if(isSignatureOverflowing($signature) && isSignatureValid($signature)){
+				updateProfil($signature);
+			}
+	}
+	?>
 <html>
 
 <head>
@@ -14,13 +20,12 @@ if(file_exists('includes/members.php')){
 <body>
 <?php
 	if(file_exists('includes/header.php')){
-		require_once('includes/header.php');
+		include_once('includes/header.php');
 	}
 		?>
 	<div class="page_title"><h2 style="text-align:center;">Mon Profil</h2></div>
 	<?php
 	drawProfil();
-
 	?>
 </section>
 
@@ -46,7 +51,7 @@ if(file_exists('includes/members.php')){
 
 <?php 
 	if(file_exists('includes/footer.php')){
-		require('includes/footer.php');	
+		include_once('includes/footer.php');	
 	}
 ?>
 </body>
