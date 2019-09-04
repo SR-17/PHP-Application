@@ -87,9 +87,8 @@ function drawProfil(){
 	echo '<section class="profil"> 
 		<h3>Bienvenue sur votre profil '.$_SESSION['pseudo'].'</h3></br>
 	<form action="profil.php" method="POST">
-	</br>Votre email :<input type="text" value="'.$user_info['mail'].'"/>
-		</br>Date d"inscription :<input type="text" value="'.$user_info['date'].'"/>
-		</br>Signature :<input type="text" name="profil_signature" value="'.$user_info['signature'].'">
+	</br>Votre email :'.$user_info['mail'].'"/>
+	</br>Signature :<input type="text" name="profil_signature" value="'.$user_info['signature'].'">                                                                                             
 		</br>
 
 		<input type="submit" value="Mettre à jour mon profil"/>
@@ -99,9 +98,8 @@ function drawProfil(){
 		echo '<section>';
         echo '<h4 style="text-align:center;">Vous devez être connecté pour voir votre profil</h4>';
 		echo '<h4 style="text-align:center;">Si vous n\'avez pas de compte, veuillez vous rendre <a href=\'inscription.php\'>ici</a></h4></section>';
-		
-	}	
-}	
+}
+}
 function drawNews(){
 	$count = 5;
 	if(isset($_GET['count'])){
@@ -163,10 +161,13 @@ function isPasswordMatching($password,$tocompare){
 		return FALSE;
 	}
 }
-function updateProfil($value,$pseudo){ // This function assume every value is checked before
+function updateProfil($value){ // This function assume every value is checked before
 	require('bdd.php');
-	$req = $bdd->prepare('INSERT INTO membres(signature) VALUES(:signature) WHERE pseudo=:pseudo');
-	$req->execute(array('pseudo' => $pseudo,'signature' => $value));
+	echo $value;
+	$dataa = $value;
+	$pseudo = $_SESSION['pseudo'];
+	$req = $bdd->prepare('INSERT INTO membres(signaturee) VALUES(:signaturee) WHERE pseudo=:pseudo');
+	$req->execute(array('signaturee' => $dataa,'pseudo' => $pseudo));
 	$req->closeCursor();
 }
 function isSignatureOverflowing($signature){
