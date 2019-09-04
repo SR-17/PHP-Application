@@ -3,16 +3,12 @@
 	   include_once('includes/members.php');
         
 
-if(isset($_POST['profil_status'])){
-	if($_POST['profil_status'] == 'update'){
-
+if(isset($_POST['profil_signature'])){
 			$signature = $_POST['profil_signature'];
-			
 			if(isSignatureOverflowing($signature) && isSignatureValid($signature)){
 				updateProfil($signature);
 			}
 	}
-}
 	?>
 <html>
 
